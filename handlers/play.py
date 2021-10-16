@@ -55,7 +55,11 @@ def cb_admin_check(func: Callable) -> Callable:
 
 def transcode(filename):
     ffmpeg.input(filename).output(
-        "input.raw", format="s16le", acodec="pcm_s16le", ac=2, ar="48k"
+        "input.raw", 
+        format="s16le", 
+        acodec="pcm_s16le", 
+        ac=2, 
+        ar="48k"
     ).overwrite_output().run()
     os.remove(filename)
 
@@ -100,9 +104,9 @@ async def generate_cover(title, thumbnail, ctitle):
     Image.alpha_composite(image5, image6).save("temp.png")
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("etc/Futura-Book-font.ttf", 60)
+    font = ImageFont.truetype("etc/typold.otf", 55)
     font2 = ImageFont.truetype("etc/finalfont.ttf", 80)
-    draw.text((25, 523), f"Playing on {ctitle[:8]}...", (0, 0, 0), font=font)
+    draw.text((25, 520), f"Playing on {ctitle[:8]}", (0, 0, 0), font=font)
     draw.text((25, 605), f"{title[:15]}...", (0, 0, 0), font=font2)
     img.save("final.png")
     os.remove("temp.png")
@@ -538,8 +542,12 @@ async def play(_, message: Message):
             entities = message.reply_to_message.entities + entities
         elif message.reply_to_message.caption_entities:
             entities = message.reply_to_message.entities + entities
-        urls = [entity for entity in entities if entity.type == "url"]
-        text_links = [entity for entity in entities if entity.type == "text_link"]
+        urls = [
+            entity for entity in entities if entity.type == "url"
+        ]
+        text_links = [
+            entity for entity in entities if entity.type == "text_link"
+        ]
     else:
         urls = None
     if text_links:
@@ -576,7 +584,7 @@ async def play(_, message: Message):
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         message.from_user.first_name
-        await generate_cover(title, thumbnail, ctitle)
+        await generate_cover(title, thumbnail)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -590,7 +598,7 @@ async def play(_, message: Message):
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
             # print(results)
-            title = results[0]["title"][:60]
+            title = results[0]["title"][:65]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
             ctitle = message.chat.title
@@ -684,7 +692,7 @@ async def play(_, message: Message):
             # print(results)
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
-                title = results[0]["title"][:60]
+                title = results[0]["title"][:65]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
                 ctitle = message.chat.title
@@ -748,7 +756,7 @@ async def play(_, message: Message):
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
@@ -781,7 +789,7 @@ async def lol_cb(b, cb):
         cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss = results[x]["url_suffix"]
-    title = results[x]["title"][:60]
+    title = results[x]["title"][:65]
     thumbnail = results[x]["thumbnails"][0]
     duration = results[x]["duration"]
     results[x]["views"]
@@ -852,7 +860,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {r_by.mention}",
             reply_markup=keyboard,
         )
@@ -928,7 +936,7 @@ async def ytplay(_, message: Message):
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
         # print(results)
-        title = results[0]["title"][:60]
+        title = results[0]["title"][:65]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
         ctitle = message.chat.title
@@ -978,6 +986,7 @@ async def ytplay(_, message: Message):
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
+        await lel.delete()
         await message.reply_photo(
             photo="final.png",
             caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
@@ -999,11 +1008,11 @@ async def ytplay(_, message: Message):
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
             )
             return
+        await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
-        return await lel.delete()
