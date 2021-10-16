@@ -13,7 +13,7 @@ que = {}
 admins = {}
 SESSION_NAME = getenv("SESSION_NAME", "session")
 BOT_TOKEN = getenv("BOT_TOKEN")
-BOT_NAME = getenv("BOT_NAME", "Veez Music")
+BOT_NAME = getenv("BOT_NAME", "Saavn Music")
 BG_IMAGE = getenv("BG_IMAGE", "https://telegra.ph/file/20147c4f049e2c1f2f248.png")
 THUMB_IMG = getenv("THUMB_IMG", "https://telegra.ph/file/4c39fbb88932761913fff.png")
 AUD_IMG = getenv("AUD_IMG", "https://telegra.ph/file/73e10ed6e2bd32b478de6.png")
@@ -21,12 +21,12 @@ QUE_IMG = getenv("QUE_IMG", "https://telegra.ph/file/b95c13eef1ebd14dbb458.png")
 ALIVE_IMG = getenv("ALIVE_IMG", "https://telegra.ph/file/c83b000f004f01897fe18.png")
 API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
-BOT_USERNAME = getenv("BOT_USERNAME", "veezmusicbot")
-ASSISTANT_NAME = getenv("ASSISTANT_NAME", "veezassistant")
-GROUP_SUPPORT = getenv("GROUP_SUPPORT", "VeezSupportGroup")
-UPDATES_CHANNEL = getenv("UPDATES_CHANNEL", "levinachannel")
+BOT_USERNAME = getenv("BOT_USERNAME", "saavn_bot")
+ASSISTANT_NAME = getenv("ASSISTANT_NAME", "music_plugin")
+GROUP_SUPPORT = getenv("GROUP_SUPPORT", "hindi_chatting_india")
+UPDATES_CHANNEL = getenv("UPDATES_CHANNEL", "vasu_xd")
 # isi dengan username kamu tanpa simbol @
-OWNER_NAME = getenv("OWNER_NAME", "dlwrml")
+OWNER_NAME = getenv("OWNER_NAME", "VasuXD")
 # fill with your nickname
 ALIVE_NAME = getenv("ALIVE_NAME", "Levina")
 # fill with your id as the owner of the bot
